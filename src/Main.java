@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main extends JFrame {
     public static void main(String[] args) throws Exception {
@@ -16,7 +18,14 @@ public class Main extends JFrame {
             this.width = width;
         }
 
-        public void paint(Graphics g) {
+        public void paint(Graphics g, Point mousePosition) {
+            int colorHex = 255;
+            if (withinBounds(mousePosition.x, mousePosition.y, x, y, width, width))
+                colorHex = 128;
+            g.setColor(new Color(colorHex, colorHex, colorHex));
+            g.fillRect(x, y, width, width);
+            // Draw outline
+            g.setColor(new Color(0, 0, 0));
             g.drawRect(x, y, width, width);
         }
     }
@@ -32,10 +41,13 @@ public class Main extends JFrame {
             this.cells = cells;
         }
 
-        public void paint(Graphics g) {
+        public void paint(Graphics g, Point mousePosition) {
             g.translate(offsetX, offsetY);
+            // account for offset
+            mousePosition.x -= offsetX;
+            mousePosition.y -= offsetY;
             for (Cell c : cells) {
-                c.paint(g);
+                c.paint(g, mousePosition);
             }
             // Move it back to center
             g.translate(-offsetX, -offsetY);
@@ -59,7 +71,10 @@ public class Main extends JFrame {
         }
 
         public void paint(Graphics g) {
-            grid.paint(g);
+            Point mousePosition = this.getMousePosition();
+            if (mousePosition == null)
+                mousePosition = new Point(-1, -1);
+            grid.paint(g, mousePosition);
         }
     }
 
@@ -69,5 +84,26 @@ public class Main extends JFrame {
         this.setContentPane(canvas);
         this.setVisible(true);
         this.pack();
+
+        Timer timer = new Timer(16, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                canvas.repaint();
+            }
+        });
+
+        timer.start();
+    }
+
+    private static boolean withinBounds(int mouseX, int mouseY, int x, int y, int width, int height) {
+        if (mouseX < x)
+            return false;
+        if (mouseX >= x + width)
+            return false;
+        if (mouseY < y)
+            return false;
+        if (mouseY >= y + width)
+            return false;
+        return true;
     }
 }
