@@ -11,7 +11,6 @@ class Actor {
     }
 
     void paint(Graphics g) {
-        g.setColor(color);
-        g.fillRect(loc.x, loc.y, loc.width, loc.height);
+        // Unpainted
     }
 }
