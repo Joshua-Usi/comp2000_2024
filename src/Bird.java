@@ -1,14 +1,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
+import java.util.ArrayList;
 
 class Bird extends Actor {
     Bird(int x, int y, int w) {
         super(x, y, w, new Color(0, 255, 0));
-    }
-
-    void paint(Graphics g) {
-        g.setColor(color);
 
         Polygon wing1 = new Polygon();
         wing1.addPoint(loc.x + 5, loc.y + 5);
@@ -24,8 +21,8 @@ class Bird extends Actor {
         body.addPoint(loc.x + 20, loc.y + 25);
         body.addPoint(loc.x + 15, loc.y + 25);
 
-        g.fillPolygon(wing1);
-        g.fillPolygon(wing2);
-        g.fillPolygon(body);
+        shapes.add(wing1);
+        shapes.add(wing2);
+        shapes.add(body);
     }
 }

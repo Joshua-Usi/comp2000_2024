@@ -5,10 +5,7 @@ import java.awt.Polygon;
 class Cat extends Actor {
     Cat(int x, int y, int w) {
         super(x, y, w, new Color(0, 0, 255));
-    }
 
-    void paint(Graphics g) {
-        g.setColor(color);
         Polygon ear1 = new Polygon();
         ear1.addPoint(loc.x + 11, loc.y + 5);
         ear1.addPoint(loc.x + 15, loc.y + 15);
@@ -22,8 +19,8 @@ class Cat extends Actor {
         face.addPoint(loc.x + 29, loc.y + 15);
         face.addPoint(loc.x + 17, loc.y + 30);
 
-        g.fillPolygon(ear1);
-        g.fillPolygon(ear2);
-        g.fillPolygon(face);
+        shapes.add(ear1);
+        shapes.add(ear2);
+        shapes.add(face);
     }
 }
