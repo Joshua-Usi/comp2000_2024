@@ -1,22 +1,18 @@
-import java.awt.Graphics;
-import java.awt.Point;
-import java.util.ArrayList;
+import java.util.List;
 
-class Stage {
-    Grid grid;
-    ArrayList<Actor> actors;
+public class Stage {
+  Grid grid;
+  List<Actor> actors;
 
-    Stage(Grid grid, ArrayList<Actor> actors) {
-        this.grid = grid;
-        this.actors = actors;
+  public Stage() {
+    grid = new Grid();
+    actors = new ArrayList<Actor>();
+  }
+
+  public void paint(Graphics g, Point mouseLoc) {
+    grid.paint(g, mouseLoc);
+    for(Actor a: actors) {
+      a.paint(g);
     }
-
-    void paint(Graphics g, Point mousePosition) {
-        grid.paint(g, mousePosition);
-        g.translate(grid.offsetX, grid.offsetY);
-        for (Actor actor : actors) {
-            actor.paint(g);
-        }
-        g.translate(-grid.offsetX, -grid.offsetY);
-    }
+  }
 }

@@ -1,27 +1,40 @@
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.io.IOException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Main extends JFrame {
     public static void main(String[] args) throws Exception {
-        @SuppressWarnings("unused")
-        Main window = new Main();
+      Main window = new Main();
+      window.run();
+    }
+
+    class Canvas extends JPanel {
+      Stage stage;
+      public Canvas() {
+        setPreferredSize(new Dimension(720, 720));
+        stage = StageReader.readStage("data/stage11.rvb");
+      }
+
+      @Override
+      public void paint(Graphics g) {
+        stage.paint(g, getMousePosition());
+      }
     }
 
     private Main() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Canvas canvas = new Canvas();
-        this.setContentPane(canvas);
-        this.setVisible(true);
-        this.pack();
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      Canvas canvas = new Canvas();
+      this.setContentPane(canvas);
+      this.pack();
+      this.setVisible(true);
+    }
 
-        Timer timer = new Timer(16, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                canvas.repaint();
-            }
-        });
-
-        timer.start();
+    public void run() {
+      while(true) {
+        repaint();
+      }
     }
 }
