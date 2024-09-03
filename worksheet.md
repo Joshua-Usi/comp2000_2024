@@ -191,3 +191,45 @@ Add the following method to the `Grid` class
  Now use this method to turn the `paint` method of the `Grid` class into a single line of code.  I.e. remove the double-nested loop and replace it with a call to `doToEachCell`.
 
 🤔 Can you find anywhere else this is useful?  🤔🤔 Can you make any other useful _higher order_ methods?
+
+# Task 16
+
+Currently, the game loop (in `Main.run`) is running as fast as it can.   This just burns CPU cycles and heats up your computer needlessly.  We need to "fix" the frame-rate so we are not pointlessly burning CPU power. You can do this by asking the current thread to sleep for a period of time using `Thread.sleep`. We want the frame-rate to be about 50 frames per second, that means we need the loop to take 20ms to complete.
+
+Sleeping a thread throws an `InterruptedException` so that will need a try/catch to deal with that. In fact, we don't care about the thread being interrupted so the catch block should just report the fact it was interrupted, print out a representation (via `toString`) of the exception that was thrown, and continue on as normal.
+
+🤔 Can you even cause the exception to be thrown?
+
+We have made the necessary changes for you, but please go through them to understand what we have done.
+
+# Task 17
+
+The team has signed off on the game concept and it is time to start developing the gameplay.  The big-wigs at your company have decided the world needs a new turn-based strategy game in the spirit of famicom-wars, so we will build one of those.  The first step is to put in the turns!  We are going to need:
+  * Characters on different teams (Humans vs Bots)
+  * A way for the player to move their characters
+  * A way for the computer to move the bot characters.
+
+We have made all the changes for you, but please go through each one to understand what we have done.  I.e. your job for this task is to understand the code we have added rather than adding any code of your own.  I strongly encourage you to explore this commit on github or in VSCode using the GitLens addon where you can see exactly what lines were added/deleted/modified in making these changes.
+
+If you play the game now, you will see there are three stages:
+  * player chooses character
+  * player chooses new location
+  * computer moves its characters
+
+Notice that the computer move is random every time.  The bot AI (such as it is) asks for all cells that actor can move to, and picks one at random to move to.
+
+# Task 18
+
+We are going to build some (very rudimentary) strategy into this turn-based strategy game.  At the moment, all the actors on the bot team will just move randomly.  Instead, we want their strategy to be determined by _which row they are on_.  If they are on an even-numbered then they should move randomly, but if they are on an odd-numbered row they should _always move to the left-most possible location_.  Note:  if it is not clear yet, you need the strategy pattern so implement this.  Why is is the right pattern for this task?
+
+# Task 17a
+
+Re-do Task 17 from last week. Can you identify which design pattern was used? Find the diagram for the design pattern in the text book and use it to draw a matching diagram using the classes in our code base.
+
+# Task 19
+
+Head office have demanded that all iteration be done with the ["enhanced for loop" - aka the "for each" loop](https://web.archive.org/web/20180113011535/blogs.oracle.com/corejavatechtips/using-enhanced-for-loops-with-your-classes).  You don't mind, this is a sensible-enough plan.
+
+You go on a hunt for loops that might need changing.  First you find the nested for-loops in the `Grid` constructor but head-office allow old-style loops for building arrays.  However, there are _two_ other places in `Grid.java` where forbidden-looping techqniques are used.  The team has a discussion and decides the best solution is to add an iterator to `Grid` so that the enhanced for loop can be used.
+
+Your job is to create such an iterator.  It must iterate over every cell in the grid, but the order it does so does not matter.  Then you should use that iterator to replace all the forbidden loops in `Grid`.
