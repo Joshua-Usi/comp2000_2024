@@ -249,3 +249,12 @@ This task will sit to the side of our other tasks for the moment. It is an exper
 Can we make the strategy pattern we created in Task18 disappear with lambda expressions? More concretely, can I get rid of the strategy interface and its subclasses and still have dynamic behaviour at run-time? If so, implement it and discuss the pros and cons of this approach compared to a "real" strategy pattern.
 
 Yes, this is possible with lambda's, However you lose the compile time type safety. Using polymorphic strategy pattern is type safe, compile time safe and 
+# Task 20
+
+Programming with Streams and Lambdas can be a significant mental shift. Take a look at the `getClearRadius` method that is now in `BotMovingState.java` and refactor it to use stream processing.
+We've included some of the code for you, you will need to uncomment the indicated lines and complete them.
+Don't forget to remove the old code once you have it working.
+
+# 🤔 Task 20a
+
+Idiomatically, writing code in a "functional style" using streams often involves writing a "one liner". That is, creating a pipeline of stream operations without any intermediate local variables being declared inside the method (you can still use lambdas with parameters). See if you can streamline `getClearRadius` even further by removing the intermediate variables `init` and `clear` and re-factor the method into a "one liner" streams pipeline without using any local variables.
