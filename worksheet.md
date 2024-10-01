@@ -247,3 +247,5 @@ Hint: The `Stage` class makes use of the `State` enum in two different contexts 
 This task will sit to the side of our other tasks for the moment. It is an experiment. Even after we get an answer, we may not build upon that answer in later tasks. However, I think this is the most interesting task so far, it is certainly worth your time.
 
 Can we make the strategy pattern we created in Task18 disappear with lambda expressions? More concretely, can I get rid of the strategy interface and its subclasses and still have dynamic behaviour at run-time? If so, implement it and discuss the pros and cons of this approach compared to a "real" strategy pattern.
+
+Yes, this is possible with lambda's, However you lose the compile time type safety. Using polymorphic strategy pattern is type safe, compile time safe and 

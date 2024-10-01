@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.List;
 
-public abstract class Actor {
+public abstract class Actor implements GameState {
   Color color;
   Cell loc;
   List<Polygon> display;
